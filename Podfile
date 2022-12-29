@@ -7,4 +7,6 @@ target 'task_4' do
 
   # Pods for task_4
 
+    pod 'SnapKit', '~> 5.6.0'
+
 end

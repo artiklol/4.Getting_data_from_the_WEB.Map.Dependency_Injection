@@ -13,6 +13,7 @@
 		0653EF8D295DCC5E00BE5D2F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0653EF8B295DCC5E00BE5D2F /* Main.storyboard */; };
 		0653EF8F295DCC6000BE5D2F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0653EF8E295DCC6000BE5D2F /* Assets.xcassets */; };
 		0653EF92295DCC6000BE5D2F /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0653EF90295DCC6000BE5D2F /* LaunchScreen.storyboard */; };
+		D5EF0D8A20AA6FFAB6A58D19 /* Pods_task_4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A813A882C4F3290DB6A68843 /* Pods_task_4.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,9 @@
 		0653EF8E295DCC6000BE5D2F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0653EF91295DCC6000BE5D2F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0653EF93295DCC6000BE5D2F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		259666A16E86A1A67A108EFB /* Pods-task_4.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-task_4.debug.xcconfig"; path = "Target Support Files/Pods-task_4/Pods-task_4.debug.xcconfig"; sourceTree = "<group>"; };
+		A813A882C4F3290DB6A68843 /* Pods_task_4.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_task_4.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EB12C32F604E200A37F420FF /* Pods-task_4.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-task_4.release.xcconfig"; path = "Target Support Files/Pods-task_4/Pods-task_4.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D5EF0D8A20AA6FFAB6A58D19 /* Pods_task_4.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +47,8 @@
 			children = (
 				0653EF84295DCC5E00BE5D2F /* task_4 */,
 				0653EF83295DCC5E00BE5D2F /* Products */,
+				25E49B864F36ABE5BADF0C10 /* Pods */,
+				475CDCC4BE2FC2E3244C23C7 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -67,6 +74,24 @@
 			path = task_4;
 			sourceTree = "<group>";
 		};
+		25E49B864F36ABE5BADF0C10 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				259666A16E86A1A67A108EFB /* Pods-task_4.debug.xcconfig */,
+				EB12C32F604E200A37F420FF /* Pods-task_4.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		475CDCC4BE2FC2E3244C23C7 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A813A882C4F3290DB6A68843 /* Pods_task_4.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -74,10 +99,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0653EF96295DCC6000BE5D2F /* Build configuration list for PBXNativeTarget "task_4" */;
 			buildPhases = (
+				886349473802FD2619D886FC /* [CP] Check Pods Manifest.lock */,
 				0653EF99295DCD5200BE5D2F /* Run Script */,
 				0653EF7E295DCC5E00BE5D2F /* Sources */,
 				0653EF7F295DCC5E00BE5D2F /* Frameworks */,
 				0653EF80295DCC5E00BE5D2F /* Resources */,
+				19255340D89046824ADDCAD3 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -153,6 +180,45 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export PATH=\"$PATH:/opt/homebrew/bin\"\nif which swiftlint > /dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+		19255340D89046824ADDCAD3 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-task_4/Pods-task_4-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-task_4/Pods-task_4-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-task_4/Pods-task_4-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		886349473802FD2619D886FC /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-task_4-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -305,6 +371,7 @@
 		};
 		0653EF97295DCC6000BE5D2F /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 259666A16E86A1A67A108EFB /* Pods-task_4.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -333,6 +400,7 @@
 		};
 		0653EF98295DCC6000BE5D2F /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EB12C32F604E200A37F420FF /* Pods-task_4.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
