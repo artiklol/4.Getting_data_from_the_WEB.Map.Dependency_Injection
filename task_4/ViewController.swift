@@ -20,6 +20,8 @@ class ViewController: UIViewController {
     private lazy var refreshButton = UIBarButtonItem(title: "Обновить", style: .plain, target: self,
                                                      action: #selector(refreshButtonTapped))
 
+    var test: [WelcomeElement] = []
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -32,12 +34,6 @@ class ViewController: UIViewController {
         navigationItem.title = "Карта банкоматов"
         navigationItem.rightBarButtonItem = refreshButton
 
-        let pinLocation = CLLocationCoordinate2DMake(54.2093303, 28.4741666)
-        let objectAnnotation = MKPointAnnotation()
-        objectAnnotation.coordinate = pinLocation
-        objectAnnotation.title = "Test"
-        mapView.addAnnotation(objectAnnotation)
-
         view.addSubview(mapView)
 
         mapView.snp.makeConstraints { maker in
@@ -46,7 +42,6 @@ class ViewController: UIViewController {
             maker.right.equalToSuperview().inset(0)
             maker.bottom.equalToSuperview().inset(0)
         }
-
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -77,7 +72,20 @@ class ViewController: UIViewController {
         }
     }
 
+    func points() {
+        for tes in test {
+            let pinLocation = tes.coordinate
+            let objectAnnotation = MKPointAnnotation()
+            objectAnnotation.coordinate = pinLocation
+            objectAnnotation.title = tes.id
+            objectAnnotation.subtitle = tes.id
+            mapView.addAnnotation(objectAnnotation)
+        }
+
+    }
+
     func setupManager() {
+        mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
     }
@@ -88,7 +96,7 @@ class ViewController: UIViewController {
             break
         case .authorizedWhenInUse:
             mapView.showsUserLocation = true
-//            locationManager.startUpdatingLocation()
+            //            locationManager.startUpdatingLocation()
         case .denied:
             let message = "Для продолжения работы этому приложению требуется доступ к вашей геолокации." +
             "Вы хотите предоставить доступ?"
@@ -121,11 +129,23 @@ class ViewController: UIViewController {
     }
 
     @objc func refreshButtonTapped() {
+        let activityIndicator = UIActivityIndicatorView(style: .medium)
+        let barButton = UIBarButtonItem(customView: activityIndicator)
+
+        navigationItem.rightBarButtonItem = barButton
+        activityIndicator.startAnimating()
+        NetworkManager.fetchData { testi in
+            self.test = testi
+            activityIndicator.stopAnimating()
+            self.points()
+            self.navigationItem.rightBarButtonItem = self.refreshButton
+        }
+
     }
 
 }
 
-extension ViewController: CLLocationManagerDelegate {
+extension ViewController: CLLocationManagerDelegate, MKMapViewDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.last?.coordinate {
             let region = MKCoordinateRegion(center: location,
@@ -137,6 +157,32 @@ extension ViewController: CLLocationManagerDelegate {
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
         checkAuthorization()
+    }
+
+    func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        guard let temp = view.annotation?.subtitle, let value = temp else { return }
+        var ind = 0
+        for index in 0..<test.count where test[index].id == value {
+            ind = index
+        }
+        showPreliminaryDetails(element: test[ind])
+        mapView.deselectAnnotation(view.annotation, animated: false)
+    }
+
+    private func showPreliminaryDetails(element: WelcomeElement) {
+        let preliminaryDetails = PreliminaryDetailsViewController()
+        preliminaryDetails.installPlaceLabel.text = element.installPlace
+        preliminaryDetails.workTimeLabel.text = element.workTime
+        preliminaryDetails.currencyLabel.text = "\(element.currency)"
+        preliminaryDetails.cashInLabel.text = "\(element.cashIn)"
+
+        preliminaryDetails.modalPresentationStyle = .formSheet
+
+        if let sheet = preliminaryDetails.sheetPresentationController {
+            sheet.detents = [.medium()]
+        }
+
+        present(preliminaryDetails, animated: true, completion: nil)
     }
 
 }
