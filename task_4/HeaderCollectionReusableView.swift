@@ -13,7 +13,7 @@ class HeaderCollectionReusableView: UICollectionReusableView {
 
     private lazy var titleHeader: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = UIColor(named: "BlackWhite")
         label.textAlignment = .left
         label.numberOfLines = 0
         return label

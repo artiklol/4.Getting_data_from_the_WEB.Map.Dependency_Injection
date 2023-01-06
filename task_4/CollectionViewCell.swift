@@ -16,6 +16,7 @@ class CollectionViewCell: UICollectionViewCell {
         label.font = label.font.withSize(10)
         label.textAlignment = .center
         label.numberOfLines = 4
+        label.textColor = .white
         return label
     }()
     private lazy var workTimeTitleLabel: UILabel = {
@@ -23,6 +24,7 @@ class CollectionViewCell: UICollectionViewCell {
         label.text = "Режим работы:"
         label.font = .boldSystemFont(ofSize: 10)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     private lazy var workTimeLabel: UILabel = {
@@ -30,6 +32,7 @@ class CollectionViewCell: UICollectionViewCell {
         label.font = label.font.withSize(10)
         label.textAlignment = .center
         label.numberOfLines = 3
+        label.textColor = .white
         return label
     }()
     private lazy var currencyTitleLabel: UILabel = {
@@ -37,19 +40,21 @@ class CollectionViewCell: UICollectionViewCell {
         label.text = "Валюта:"
         label.font = .boldSystemFont(ofSize: 10)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     private lazy var currencyLabel: UILabel = {
         let label = UILabel()
         label.font = label.font.withSize(10)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
-        contentView.backgroundColor = .systemGreen
+        contentView.backgroundColor = UIColor(named: "Green")
         contentView.layer.cornerRadius = 15
 
         contentView.addSubview(installPlaceLabel)

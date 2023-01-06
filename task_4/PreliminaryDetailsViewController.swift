@@ -78,14 +78,20 @@ class PreliminaryDetailsViewController: UIViewController {
     private lazy var detailButton: UIButton = {
         let button = UIButton()
         button.setTitle("Подробнее", for: .normal)
-        button.backgroundColor = .black
+        button.backgroundColor = UIColor(named: "Green")
         button.layer.cornerRadius = 15
+        return button
+    }()
+    private lazy var closedButton: UIButton = {
+        let button = UIButton(type: .close)
+        button.tintColor = .black
+        button.layer.cornerRadius = 20
         return button
     }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = UIColor(named: "ViewBackgroundColor")
 
         view.addSubview(mainStackView)
         view.addSubview(installPlaceLabel)
@@ -99,6 +105,7 @@ class PreliminaryDetailsViewController: UIViewController {
         mainStackView.addArrangedSubview(currencyStackView)
         mainStackView.addArrangedSubview(cashInStackView)
         view.addSubview(detailButton)
+        view.addSubview(closedButton)
 
         setConstraint()
     }
@@ -123,6 +130,11 @@ class PreliminaryDetailsViewController: UIViewController {
             maker.bottom.equalToSuperview().inset(30)
             maker.height.equalTo(40)
         }
+        closedButton.snp.makeConstraints { maker in
+            maker.top.equalToSuperview().inset(20)
+            maker.right.equalToSuperview().inset(20)
+            maker.height.equalTo(40)
+        }
     }
 
     func dataInPreliminaryDetails(element: WelcomeElement) {
@@ -130,5 +142,9 @@ class PreliminaryDetailsViewController: UIViewController {
         workTimeLabel.text = element.workTime
         currencyLabel.text = element.currency.rawValue
         cashInLabel.text = element.cashIn.rawValue
+    }
+
+    @objc func closes() {
+        dismiss(animated: true, completion: nil)
     }
 }
