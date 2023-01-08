@@ -73,20 +73,52 @@
 		0653EF84295DCC5E00BE5D2F /* task_4 */ = {
 			isa = PBXGroup;
 			children = (
-				0653EF9A295F259B00BE5D2F /* ATM.swift */,
-				0653EF9C295F25B300BE5D2F /* NetworkManager.swift */,
-				0653EF89295DCC5E00BE5D2F /* MainViewController.swift */,
-				0653EFA0295F977C00BE5D2F /* PreliminaryDetailsViewController.swift */,
-				06AEB41329685B32000319E9 /* DetailsViewControllerViewController.swift */,
-				0653EFA22963418800BE5D2F /* CollectionViewCell.swift */,
-				0653EFA42963B0B300BE5D2F /* HeaderCollectionReusableView.swift */,
+				06AC7212296B065700B55749 /* Model */,
+				06AC7213296B066600B55749 /* View */,
+				06AC7214296B067400B55749 /* Controller */,
+				06AC7211296B05E500B55749 /* Support Files */,
+			);
+			path = task_4;
+			sourceTree = "<group>";
+		};
+		06AC7211296B05E500B55749 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
 				0653EF85295DCC5E00BE5D2F /* AppDelegate.swift */,
 				0653EF87295DCC5E00BE5D2F /* SceneDelegate.swift */,
 				0653EF8E295DCC6000BE5D2F /* Assets.xcassets */,
 				0653EF90295DCC6000BE5D2F /* LaunchScreen.storyboard */,
 				0653EF93295DCC6000BE5D2F /* Info.plist */,
 			);
-			path = task_4;
+			path = "Support Files";
+			sourceTree = "<group>";
+		};
+		06AC7212296B065700B55749 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0653EF9A295F259B00BE5D2F /* ATM.swift */,
+				0653EF9C295F25B300BE5D2F /* NetworkManager.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		06AC7213296B066600B55749 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0653EFA22963418800BE5D2F /* CollectionViewCell.swift */,
+				0653EFA42963B0B300BE5D2F /* HeaderCollectionReusableView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		06AC7214296B067400B55749 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				0653EF89295DCC5E00BE5D2F /* MainViewController.swift */,
+				0653EFA0295F977C00BE5D2F /* PreliminaryDetailsViewController.swift */,
+				06AEB41329685B32000319E9 /* DetailsViewControllerViewController.swift */,
+			);
+			path = Controller;
 			sourceTree = "<group>";
 		};
 		25E49B864F36ABE5BADF0C10 /* Pods */ = {
@@ -390,7 +422,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T5K8V44L2C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = task_4/Info.plist;
+				INFOPLIST_FILE = "task_4/Support Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -418,7 +450,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = T5K8V44L2C;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = task_4/Info.plist;
+				INFOPLIST_FILE = "task_4/Support Files/Info.plist";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
