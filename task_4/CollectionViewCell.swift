@@ -15,53 +15,24 @@ class CollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.font = label.font.withSize(10)
         label.textAlignment = .center
-        label.numberOfLines = 4
+        label.numberOfLines = 0
         label.textColor = .white
         return label
     }()
-    private lazy var workTimeTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Режим работы:"
-        label.font = .boldSystemFont(ofSize: 10)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-    private lazy var workTimeLabel: UILabel = {
-        let label = UILabel()
-        label.font = label.font.withSize(10)
-        label.textAlignment = .center
-        label.numberOfLines = 3
-        label.textColor = .white
-        return label
-    }()
-    private lazy var currencyTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Валюта:"
-        label.font = .boldSystemFont(ofSize: 10)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
-    private lazy var currencyLabel: UILabel = {
-        let label = UILabel()
-        label.font = label.font.withSize(10)
-        label.textAlignment = .center
-        label.textColor = .white
-        return label
-    }()
+    private lazy var workTimeTitleLabel = UILabel()
+    private lazy var workTimeLabel = UILabel()
+    private lazy var currencyTitleLabel = UILabel()
+    private lazy var currencyLabel = UILabel()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
 
         contentView.backgroundColor = UIColor(named: "Green")
-        contentView.layer.cornerRadius = 15
+        contentView.layer.cornerRadius = 10
 
         contentView.addSubview(installPlaceLabel)
-        contentView.addSubview(workTimeTitleLabel)
-        contentView.addSubview(workTimeLabel)
-        contentView.addSubview(currencyTitleLabel)
-        contentView.addSubview(currencyLabel)
+        setTitleAndInfo(titleLabel: workTimeTitleLabel, titleText: "Режим работы", infoLabel: workTimeLabel)
+        setTitleAndInfo(titleLabel: currencyTitleLabel, titleText: "Валюта", infoLabel: currencyLabel)
 
         setConstraint()
     }
@@ -89,6 +60,21 @@ class CollectionViewCell: UICollectionViewCell {
         currencyLabel.snp.makeConstraints { maker in
             maker.left.right.bottom.equalTo(contentView).inset(5)
         }
+    }
+
+    private func setTitleAndInfo(titleLabel: UILabel, titleText: String, infoLabel: UILabel) {
+        titleLabel.text = titleText
+        titleLabel.font = .boldSystemFont(ofSize: 10)
+        titleLabel.textColor = .white
+        titleLabel.textAlignment = .center
+
+        infoLabel.font = infoLabel.font.withSize(10)
+        infoLabel.textColor = .white
+        infoLabel.numberOfLines = 0
+        infoLabel.textAlignment = .center
+
+        contentView.addSubview(titleLabel)
+        contentView.addSubview(infoLabel)
     }
 
     func dataInCell(element: WelcomeElement) {

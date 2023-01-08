@@ -17,58 +17,15 @@ class PreliminaryDetailsViewController: UIViewController {
         label.textAlignment = .center
         return label
     }()
-    private lazy var workTimeTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Режим работы:"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
-        return label
-    }()
-    private lazy var workTimeLabel: UILabel = {
-        let label = UILabel()
-        label.numberOfLines = 0
-        label.textAlignment = .center
-        return label
-    }()
-    private lazy var workTimeStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    private lazy var currencyTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Валюта:"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
-        return label
-    }()
-    private lazy var currencyLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-    }()
-    private lazy var currencyStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
-    private lazy var cashInTitleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Наличие cash in:"
-        label.font = .boldSystemFont(ofSize: 18)
-        label.textAlignment = .center
-        return label
-    }()
-    private lazy var cashInLabel: UILabel = {
-        let label = UILabel()
-        label.textAlignment = .center
-        return label
-    }()
-    private lazy var cashInStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.axis = .vertical
-        return stackView
-    }()
+    private lazy var workTimeTitleLabel = UILabel()
+    private lazy var workTimeLabel = UILabel()
+    private lazy var workTimeStackView = UIStackView()
+    private lazy var currencyTitleLabel = UILabel()
+    private lazy var currencyLabel = UILabel()
+    private lazy var currencyStackView = UIStackView()
+    private lazy var cashInTitleLabel = UILabel()
+    private lazy var cashInLabel = UILabel()
+    private lazy var cashInStackView = UIStackView()
     private lazy var mainStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
@@ -76,18 +33,22 @@ class PreliminaryDetailsViewController: UIViewController {
         return stackView
     }()
     private lazy var detailButton: UIButton = {
-        let button = UIButton()
-        button.setTitle("Подробнее", for: .normal)
-        button.backgroundColor = UIColor(named: "Green")
-        button.layer.cornerRadius = 15
+        var configuration = UIButton.Configuration.filled()
+        configuration.title = "Подробнее"
+        let button = UIButton(configuration: configuration, primaryAction: nil)
+        button.configurationUpdateHandler = { button in
+            switch button.state {
+            case .highlighted:
+                button.configuration?.baseBackgroundColor = UIColor(named: "Green")?.withAlphaComponent(0.7)
+            default:
+                button.configuration?.baseBackgroundColor = UIColor(named: "Green")
+            }
+        }
+        button.addTarget(self, action: #selector(detailButtonTap), for: .touchUpInside)
         return button
     }()
-    private lazy var closedButton: UIButton = {
-        let button = UIButton(type: .close)
-        button.tintColor = .black
-        button.layer.cornerRadius = 20
-        return button
-    }()
+    private var element: WelcomeElement?
+    private lazy var coordinateUserLocation: (x: Double, y: Double) = (0, 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,17 +56,13 @@ class PreliminaryDetailsViewController: UIViewController {
 
         view.addSubview(mainStackView)
         view.addSubview(installPlaceLabel)
-        workTimeStackView.addArrangedSubview(workTimeTitleLabel)
-        workTimeStackView.addArrangedSubview(workTimeLabel)
-        currencyStackView.addArrangedSubview(currencyTitleLabel)
-        currencyStackView.addArrangedSubview(currencyLabel)
-        cashInStackView.addArrangedSubview(cashInTitleLabel)
-        cashInStackView.addArrangedSubview(cashInLabel)
-        mainStackView.addArrangedSubview(workTimeStackView)
-        mainStackView.addArrangedSubview(currencyStackView)
-        mainStackView.addArrangedSubview(cashInStackView)
+        setTitleAndInfoInStackView(titleLabel: workTimeTitleLabel, titleText: "Режим работы",
+                                   infoLabel: workTimeLabel, stackView: workTimeStackView)
+        setTitleAndInfoInStackView(titleLabel: currencyTitleLabel, titleText: "Режим работы",
+                                   infoLabel: currencyLabel, stackView: currencyStackView)
+        setTitleAndInfoInStackView(titleLabel: cashInTitleLabel, titleText: "Наличие cash in",
+                                   infoLabel: cashInLabel, stackView: cashInStackView)
         view.addSubview(detailButton)
-        view.addSubview(closedButton)
 
         setConstraint()
     }
@@ -130,21 +87,45 @@ class PreliminaryDetailsViewController: UIViewController {
             maker.bottom.equalToSuperview().inset(30)
             maker.height.equalTo(40)
         }
-        closedButton.snp.makeConstraints { maker in
-            maker.top.equalToSuperview().inset(20)
-            maker.right.equalToSuperview().inset(20)
-            maker.height.equalTo(40)
-        }
     }
 
-    func dataInPreliminaryDetails(element: WelcomeElement) {
+    private func setTitleAndInfoInStackView(titleLabel: UILabel, titleText: String,
+                                            infoLabel: UILabel, stackView: UIStackView) {
+        titleLabel.text = titleText
+        titleLabel.font = .boldSystemFont(ofSize: 15)
+        titleLabel.textColor = UIColor(named: "Gray")
+        titleLabel.textAlignment = .center
+
+        infoLabel.font = infoLabel.font.withSize(18)
+        infoLabel.numberOfLines = 0
+        infoLabel.textAlignment = .center
+
+        stackView.axis = .vertical
+        stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(infoLabel)
+
+        mainStackView.addArrangedSubview(stackView)
+    }
+
+    func dataInPreliminaryDetails(element: WelcomeElement, coordinate: (x: Double, y: Double)) {
         installPlaceLabel.text = element.installPlace
         workTimeLabel.text = element.workTime
         currencyLabel.text = element.currency.rawValue
         cashInLabel.text = element.cashIn.rawValue
+
+        self.element = element
+        coordinateUserLocation = coordinate
     }
 
-    @objc func closes() {
-        dismiss(animated: true, completion: nil)
+    @objc func detailButtonTap() {
+        let details = DetailsViewControllerViewController()
+        guard let element = element else { return }
+        details.dataInDetails(element: element, coord: coordinateUserLocation)
+        let navigationController = UINavigationController(rootViewController: details)
+
+        navigationController.modalPresentationStyle = .fullScreen
+
+        present(navigationController, animated: true, completion: nil)
     }
+
 }
